@@ -1,0 +1,186 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  EMPLOYEE
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  email           String         @unique
+  password        String?
+  name            String
+  role            Role           @default(USER)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  bookings        Booking[]
+  notifications   Notification[]
+  googleAuthToken String?
+}
+
+model Image {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  url         String
+  publicId    String // ID de Cloudinary
+  description String?
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  imageId   String   @db.ObjectId
+  image     Image    @relation(fields: [imageId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Movie {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  year        Int
+  genre       String
+  language    String
+  duration    Int // Duración en minutos
+  imageUrl    String?
+  trailerUrl  String?
+  description String?
+  classification String
+  format       String[]  // Lista de formatos (ejemplo: ["2D", "3D"])
+  releaseDate  DateTime 
+  screenings  Screening[]
+}
+
+model Hall {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  capacity   Int
+  screenings Screening[]
+  seats      Seat[]    // Relación con asientos
+}
+model Screening {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  movieId  String    @db.ObjectId
+  hallId   String    @db.ObjectId
+  schedule DateTime
+  price    Float
+  movie    Movie     @relation(fields: [movieId], references: [id])
+  hall     Hall      @relation(fields: [hallId], references: [id])
+  bookings Booking[]
+}
+
+model Booking {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String        @db.ObjectId
+  screeningId String        @db.ObjectId
+  totalPrice  Float
+  status      BookingStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
+  screening   Screening     @relation(fields: [screeningId], references: [id])
+  bookedSeats SeatBooking[] // Relación con los asientos reservados
+}
+model OrderItem {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  productId String
+  quantity  Int
+  price     Float
+
+  Order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String? @db.ObjectId
+
+  @@map("OrderItem")
+}
+
+model Order {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  totalAmount Float
+  totalItems  Int
+
+  buyerUserId String
+
+  status         OrderStatus @default(PENDING)
+  paid           Boolean     @default(false)
+  paidAt         DateTime?
+  stripeChargeId String?
+  receiptUrl     String?
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  OrderItem OrderItem[]
+
+  @@map("Orders")
+}
+
+model Notification {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String           @db.ObjectId
+  user      User             @relation(fields: [userId], references: [id])
+  message   String
+  type      NotificationType
+  createdAt DateTime         @default(now())
+  isRead    Boolean          @default(false)
+}
+
+model Seat {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  number     Int
+  row        String    // Por ejemplo: A, B, C...
+  hallId     String    @db.ObjectId
+  hall       Hall      @relation(fields: [hallId], references: [id])
+  isActive   Boolean   @default(true)  // Para desactivar asientos en caso de mantenimiento
+  bookings   SeatBooking[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([number, row, hallId]) // Evitar duplicados de asiento en la misma sala
+}
+
+model SeatBooking {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  seatId      String    @db.ObjectId
+  bookingId   String    @db.ObjectId
+  seat        Seat      @relation(fields: [seatId], references: [id])
+  booking     Booking   @relation(fields: [bookingId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([seatId, bookingId]) // Evitar que el mismo asiento se reserve más de una vez
+}
+
+enum NotificationType {
+  BOOKING_CONFIRMATION
+  REMINDER
+  CANCELLATION
+  PROMOTION
+}
