@@ -18,6 +18,10 @@
     "@commitlint/cli": "19.7.1",
     "@commitlint/config-conventional": "19.7.1",
     "@vercel/node": "^5.1.14",
-    "husky": "9.1.7"
+    "husky": "9.1.7",
+    "prisma": "^6.5.0"
+  },
+  "dependencies": {
+    "latest": "^0.2.0"
   }
 }
