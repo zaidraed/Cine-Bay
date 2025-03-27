@@ -15,8 +15,5 @@
   "env": {
     "PORT": "3000",
     "NODE_ENV": "production"
-  },
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist",
-  "framework": "nestjs"
+  }
 }
