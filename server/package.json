@@ -5,15 +5,11 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
-    "vercel-build": "prisma generate && npm run build",
-    "build": "nest build",
-    "start": "node dist/main.js",
+    "build": "nest build && prisma generate",
     "postinstall": "prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
