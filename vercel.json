@@ -1,8 +1,8 @@
 {
   "version": 2,
   "outputDirectory": "dist",
-  "buildCommand": "cd server && npm install && npm run build",
-  "installCommand": "cd server && npm install",
+  "buildCommand": " npm install && npm run build",
+  "installCommand": "npm install",
   "rewrites": [
     { "source": "/(.*)", "destination": "/server/dist/main.js" }
   ]
