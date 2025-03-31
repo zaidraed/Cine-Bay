@@ -9,7 +9,11 @@ async function bootstrap() {
     rawBody: true,
   });
   app.enableCors({
-    origin: "*",
+    origin: [
+      "https://cine-astas.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ],
     methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
     credentials: true,
     allowedHeaders: "Content-Type, Authorization",
