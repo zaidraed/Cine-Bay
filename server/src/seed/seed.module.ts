@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { SeedService } from './seed.service';
-import { SeedController } from './seed.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { HallModule } from 'src/hall/hall.module';
-import { SeatModule } from 'src/seat/seat.module';
-import { MoviesModule } from 'src/movies/movies.module';
-import { ScreeningModule } from 'src/screening/screening.module';
-import { BookingModule } from 'src/booking/booking.module';
+import { Module } from "@nestjs/common";
+import { SeedService } from "./seed.service";
+import { SeedController } from "./seed.controller";
+import { PrismaModule } from "../prisma/prisma.module";
+import { HallModule } from "../hall/hall.module";
+import { SeatModule } from "../seat/seat.module";
+import { MoviesModule } from "../movies/movies.module";
+import { ScreeningModule } from "../screening/screening.module";
+import { BookingModule } from "../booking/booking.module";
 
 @Module({
   controllers: [SeedController],
@@ -17,7 +17,7 @@ import { BookingModule } from 'src/booking/booking.module';
     SeatModule,
     MoviesModule,
     ScreeningModule,
-    BookingModule
-  ]
+    BookingModule,
+  ],
 })
 export class SeedModule {}
