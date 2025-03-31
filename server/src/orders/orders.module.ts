@@ -5,7 +5,7 @@ import { OrdersController } from './orders.controller';
 import { MoviesModule } from '../movies/movies.module';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PaymentsModule } from '../payments/payments.module';
-import { ScreeningModule } from 'src/screening/screening.module';
+import { ScreeningModule } from '../screening/screening.module';
 
 @Module({
   controllers: [OrdersController],
