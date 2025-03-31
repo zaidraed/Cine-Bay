@@ -11,5 +11,11 @@
       "src": "/(.*)",
       "dest": "src/main.ts"
     }
-  ]
+  ],
+
+  "build": {
+    "env": {
+      "PRISMA_GENERATE": "true"
+    }
+  }
 }
