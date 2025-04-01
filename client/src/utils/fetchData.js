@@ -1,6 +1,12 @@
-export const fetchData = async (path, method, body, token, withCredentials = false) => {
+export const fetchData = async (
+  path,
+  method,
+  body,
+  token,
+  withCredentials = false
+) => {
   try {
-    const URL = import.meta.env.VITE_BASE_URL;
+    const URL = "https://cine-bay-client.vercel.app/api";
     const headers = {};
 
     token && (headers["Authorization"] = `Bearer ${token}`);
@@ -15,7 +21,7 @@ export const fetchData = async (path, method, body, token, withCredentials = fal
     }
 
     if (withCredentials) {
-      options.credentials = "include"; 
+      options.credentials = "include";
     }
 
     const res = await fetch(`${URL}${path}`, options);

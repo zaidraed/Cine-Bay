@@ -10,9 +10,11 @@ import { ScreeningModule } from "./screening/screening.module";
 import { PaymentsModule } from "./payments/payments.module";
 import { OrdersModule } from "./orders/orders.module";
 import { ConfigModule } from "@nestjs/config";
-import { NotificationsModule } from './notifications/notifications.module';
-import { SeatModule } from './seat/seat.module';
-import { SeedModule } from './seed/seed.module';
+import { NotificationsModule } from "./notifications/notifications.module";
+import { SeatModule } from "./seat/seat.module";
+import { SeedModule } from "./seed/seed.module";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -30,7 +32,9 @@ import { SeedModule } from './seed/seed.module';
     OrdersModule,
     NotificationsModule,
     SeatModule,
-    ...(process.env.NODE_ENV !== 'production' ? [SeedModule] : []),
+    ...(process.env.NODE_ENV !== "production" ? [SeedModule] : []),
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
