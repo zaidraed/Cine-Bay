@@ -27,11 +27,11 @@ export class MoviesService {
   }
   async findAll() {
     return this.prisma.movie.findMany;
-    {
-      orderBy: {
-        releaseDate: "desc";
-      }
-    }
+    //  {
+    //    orderBy: {
+    //     releaseDate: "desc";
+    //   }
+    // }
   }
 
   async findUpcoming(): Promise<Movie[]> {
