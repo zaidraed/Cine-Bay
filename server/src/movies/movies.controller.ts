@@ -54,8 +54,20 @@ export class MoviesController {
     return this.moviesService.remove(id);
   }
   @Get("upcoming")
-  @ApiOperation({ summary: "get upcoming movies" })
+  @ApiOperation({
+    summary: "Get upcoming movies",
+    description:
+      "Returns a list of movies with release dates in the future, ordered by closest release date first",
+  })
   async findUpcoming() {
     return this.moviesService.findUpcoming();
+  }
+  @Get("now-playing")
+  @ApiOperation({
+    summary: "Get movies currently playing",
+    description: "Returns a list of movies with release dates in the past",
+  })
+  async findNowPlaying() {
+    return this.moviesService.findNowPlaying();
   }
 }

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 
 import { ObjectId } from "mongodb";
 import { PrismaService } from "../prisma/prisma.service";
@@ -12,31 +16,30 @@ export class MoviesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateMovieDto) {
+    const releaseDate = new Date(dto.releaseDate);
+    if (isNaN(releaseDate.getTime())) {
+      throw new BadRequestException("Invalid release date");
+    }
+
     return this.prisma.movie.create({
-      data: { ...dto, releaseDate: new Date(dto.releaseDate) },
+      data: { ...dto, releaseDate },
     });
   }
-
   async findAll() {
-    return this.prisma.movie
-      .findMany
-      //   {
-      //   orderBy: { releaseDate: "desc" },
-      // }
-      ();
+    return this.prisma.movie.findMany;
+    {
+      orderBy: {
+        releaseDate: "desc";
+      }
+    }
   }
 
   async findUpcoming(): Promise<Movie[]> {
     return this.prisma.movie.findMany({
       where: {
-        OR: [
-          { isUpcoming: true },
-          {
-            releaseDate: {
-              gte: new Date(), // Películas con fecha de estreno en el futuro
-            },
-          },
-        ],
+        releaseDate: {
+          gte: new Date(), // Solo películas con fecha de estreno en el futuro
+        },
       },
       orderBy: {
         releaseDate: "asc", // Ordenar por fecha de estreno más cercana
@@ -59,6 +62,18 @@ export class MoviesService {
 
   remove(id: string) {
     return this.prisma.movie.delete({ where: { id } });
+  }
+  async findNowPlaying(): Promise<Movie[]> {
+    return this.prisma.movie.findMany({
+      where: {
+        releaseDate: {
+          lte: new Date(), // Solo películas con fecha de estreno en el pasado
+        },
+      },
+      orderBy: {
+        releaseDate: "desc", // Ordenar por las más recientes primero
+      },
+    });
   }
 
   async validateIds(ids: string[]) {
