@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
+import { Navbar } from "../../Components/Navbar";
+import { Footer } from "../../Components/Footer";
 import { useScreenings } from "../../Hooks/useMovies";
 import { fetchData } from "../../utils/fetchData";
 import useAuthStore from "../../store/authStore"; // Importar el authStore
@@ -23,7 +23,7 @@ export const SitSelector = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [uniqueRows, setUniqueRows] = useState([]);
+  const [, setUniqueRows] = useState([]);
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
 
   // Obtener el userId desde el authStore
@@ -71,10 +71,7 @@ export const SitSelector = () => {
   useEffect(() => {
     if (screening && selectedSeats.length > 0) {
       // Calcular el total sumando el precio de cada asiento seleccionado
-      const total = selectedSeats.reduce(
-        (acc, seat) => acc + screening.price,
-        0
-      );
+      const total = selectedSeats.reduce((acc) => acc + screening.price, 0);
       setTotalPrice(total);
     } else {
       setTotalPrice(0);
@@ -307,10 +304,10 @@ export const SitSelector = () => {
                               !seat
                                 ? "bg-gray-400 cursor-default"
                                 : seat.status === "occupied"
-                                  ? "bg-gray-400 cursor-not-allowed"
-                                  : selectedSeats.some((s) => s.id === seat.id)
-                                    ? "bg-Success text-white"
-                                    : "bg-btn-primary hover:bg-blue-600 text-white"
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : selectedSeats.some((s) => s.id === seat.id)
+                                ? "bg-Success text-white"
+                                : "bg-btn-primary hover:bg-blue-600 text-white"
                             }
                           `}
                           disabled={!seat || seat.status === "occupied"}

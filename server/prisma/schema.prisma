@@ -71,6 +71,7 @@ model Movie {
   language    String
   duration    Int // Duración en minutos
   imageUrl    String?
+  isUpcoming    Boolean    @default(false) // Nuevo campo para identificar películas próximas
   trailerUrl  String?
   description String?
   classification String

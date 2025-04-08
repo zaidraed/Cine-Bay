@@ -5,6 +5,7 @@ import { PrismaService } from "../prisma/prisma.service";
 
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
+import { Movie } from "@prisma/client";
 
 @Injectable()
 export class MoviesService {
@@ -12,25 +13,41 @@ export class MoviesService {
 
   async create(dto: CreateMovieDto) {
     return this.prisma.movie.create({
-      data: { ...dto,
-        releaseDate: new Date(dto.releaseDate)
-       },
+      data: { ...dto, releaseDate: new Date(dto.releaseDate) },
     });
   }
 
   async findAll() {
-    return this.prisma.movie.findMany(
-    //   {
-    //   orderBy: { releaseDate: "desc" },
-    // }
-  );
+    return this.prisma.movie
+      .findMany
+      //   {
+      //   orderBy: { releaseDate: "desc" },
+      // }
+      ();
   }
-  
+
+  async findUpcoming(): Promise<Movie[]> {
+    return this.prisma.movie.findMany({
+      where: {
+        OR: [
+          { isUpcoming: true },
+          {
+            releaseDate: {
+              gte: new Date(), // Películas con fecha de estreno en el futuro
+            },
+          },
+        ],
+      },
+      orderBy: {
+        releaseDate: "asc", // Ordenar por fecha de estreno más cercana
+      },
+    });
+  }
 
   async findOne(id: string) {
     return this.prisma.movie.findUnique({
-      where: {id}
-    })
+      where: { id },
+    });
   }
 
   async update(id: string, dto: UpdateMovieDto) {
@@ -50,13 +67,14 @@ export class MoviesService {
     const movies = await this.prisma.movie.findMany({
       where: {
         id: {
-          in: ids
+          in: ids,
         },
       },
     });
 
-    if (movies.length !== ids.length) throw new NotFoundException('Some movies not found')
+    if (movies.length !== ids.length)
+      throw new NotFoundException("Some movies not found");
 
-    return movies
+    return movies;
   }
 }

@@ -1,100 +1,48 @@
-import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState, useCallback } from "react";
-import { HeroSlider } from "../../Constants";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "../ui/button";
 
-const Hero = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [isClient, setIsClient] = useState(false);
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const updateControls = useCallback(() => {
-    if (!emblaApi) return;
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", updateControls);
-    updateControls();
-  }, [emblaApi, updateControls]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [emblaApi]);
-
+export const Hero = () => {
   return (
-    <section className="container mx-auto pt-4 md:pt-17.5 pb-5 md:pb-16">
-      <div className="container mx-auto max-w-7xl px-2 relative">
-        {isClient && (
-          <>
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex">
-                {HeroSlider.map((movie) => (
-                  <div key={movie.id} className="flex-shrink-0 w-full">
-                    <img
-                      src={movie.cover}
-                      alt={movie.movie}
-                      width={410}
-                      height={129}
-                      className="object-cover rounded-xl w-full h-auto"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+    <section className="relative h-[70vh] bg-zinc-900 flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/50 to-zinc-950/90 z-10" />
 
-            <button
-              className={`absolute cursor-pointer left-5 top-1/2 transform -translate-y-1/2 bg-btn-primary/60 p-2 rounded-full ${
-                canScrollPrev ? "opacity-100" : "opacity-50 cursor-not-allowed"
-              }`}
-              onClick={() => emblaApi && emblaApi.scrollPrev()}
-              disabled={!canScrollPrev}
-              aria-label="Previous"
-            >
-              <ChevronLeft className="text-white/70 size-6" />
-            </button>
-            <button
-              className={`absolute cursor-pointer right-5 top-1/2 transform -translate-y-1/2 bg-btn-primary/60 p-2 rounded-full ${
-                canScrollNext ? "opacity-100" : "opacity-50 cursor-not-allowed"
-              }`}
-              onClick={() => emblaApi && emblaApi.scrollNext()}
-              disabled={!canScrollNext}
-              aria-label="Next"
-            >
-              <ChevronRight className="text-white/70 size-6" />
-            </button>
+      <video
+        autoPlay
+        muted
+        loop
+        className="absolute inset-0 w-full h-full object-cover opacity-50"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
 
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
-              {HeroSlider.map((_, index) => (
-                <div
-                  key={index}
-                  className={`size-2 lg:size-4 rounded-full transition-colors cursor-pointer ${
-                    selectedIndex === index ? "bg-btn-primary" : "bg-white/50"
-                  }`}
-                  onClick={() => emblaApi && emblaApi.scrollTo(index)}
-                />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="container relative z-20 text-center px-4"
+      >
+        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+            CINE-BAY
+          </span>{" "}
+          Premium
+        </h1>
+        <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
+          Experiencia cinematográfica de primera clase con la mejor tecnología
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Button className="bg-blue-600 hover:bg-blue-700 px-8 py-6 text-lg">
+            Ver Cartelera
+          </Button>
+          <Button
+            variant="outline"
+            className="border-blue-400 text-blue-400 hover:bg-blue-500/10 px-8 py-6 text-lg"
+          >
+            Próximos Estrenos
+          </Button>
+        </div>
+      </motion.div>
     </section>
   );
 };
-
-export default Hero;

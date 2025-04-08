@@ -53,4 +53,9 @@ export class MoviesController {
   remove(@Param("id") id: string) {
     return this.moviesService.remove(id);
   }
+  @Get("upcoming")
+  @ApiOperation({ summary: "get upcoming movies" })
+  async findUpcoming() {
+    return this.moviesService.findUpcoming();
+  }
 }

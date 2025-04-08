@@ -1,0 +1,1403 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/images": {
+      "post": {
+        "operationId": "ImagesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateImageDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Upload a new image",
+        "tags": [
+          "images"
+        ]
+      },
+      "get": {
+        "operationId": "ImagesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all images",
+        "tags": [
+          "images"
+        ]
+      }
+    },
+    "/api/images/{id}": {
+      "get": {
+        "operationId": "ImagesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get one image by id",
+        "tags": [
+          "images"
+        ]
+      },
+      "delete": {
+        "operationId": "ImagesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete an image",
+        "tags": [
+          "images"
+        ]
+      }
+    },
+    "/api/images/{id}/comments": {
+      "post": {
+        "operationId": "ImagesController_addComment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Add a comment to an image",
+        "tags": [
+          "images"
+        ]
+      }
+    },
+    "/api/movies": {
+      "post": {
+        "operationId": "MoviesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovieDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new movie",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "get": {
+        "operationId": "MoviesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all movies",
+        "tags": [
+          "Movies"
+        ]
+      }
+    },
+    "/api/movies/{id}": {
+      "get": {
+        "operationId": "MoviesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a movie by ID",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "put": {
+        "operationId": "MoviesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMovieDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update a movie",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "patch": {
+        "operationId": "MoviesController_updateMovie",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMovieDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Movies"
+        ]
+      },
+      "delete": {
+        "operationId": "MoviesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a movie",
+        "tags": [
+          "Movies"
+        ]
+      }
+    },
+    "/api/booking": {
+      "post": {
+        "operationId": "BookingController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBookingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new booking",
+        "tags": [
+          "Booking"
+        ]
+      },
+      "get": {
+        "operationId": "BookingController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all bookings",
+        "tags": [
+          "Booking"
+        ]
+      }
+    },
+    "/api/booking/{id}": {
+      "get": {
+        "operationId": "BookingController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a booking by ID",
+        "tags": [
+          "Booking"
+        ]
+      },
+      "put": {
+        "operationId": "BookingController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update a booking",
+        "tags": [
+          "Booking"
+        ]
+      },
+      "delete": {
+        "operationId": "BookingController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a booking",
+        "tags": [
+          "Booking"
+        ]
+      }
+    },
+    "/api/notifications": {
+      "post": {
+        "operationId": "NotificationsController_sendNotification",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/api/notifications/{userId}": {
+      "get": {
+        "operationId": "NotificationsController_getUserNotifications",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/api/notifications/{id}": {
+      "patch": {
+        "operationId": "NotificationsController_markAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/api/seats": {
+      "post": {
+        "operationId": "SeatController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSeatDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new seat",
+        "tags": [
+          "seats"
+        ]
+      },
+      "get": {
+        "operationId": "SeatController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all seats",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/seats/bulk": {
+      "post": {
+        "operationId": "SeatController_createBulk",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create multiple seats at once",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/seats/generate/{hallId}": {
+      "post": {
+        "operationId": "SeatController_generateHallSeats",
+        "parameters": [
+          {
+            "name": "hallId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Generate all seats for a hall",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/seats/hall/{hallId}": {
+      "get": {
+        "operationId": "SeatController_findByHall",
+        "parameters": [
+          {
+            "name": "hallId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all seats for a specific hall",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/seats/available/{screeningId}": {
+      "get": {
+        "operationId": "SeatController_findAvailableSeats",
+        "parameters": [
+          {
+            "name": "screeningId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all available seats for a specific screening",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/seats/{id}": {
+      "get": {
+        "operationId": "SeatController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a seat by id",
+        "tags": [
+          "seats"
+        ]
+      },
+      "put": {
+        "operationId": "SeatController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSeatDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update a seat",
+        "tags": [
+          "seats"
+        ]
+      },
+      "delete": {
+        "operationId": "SeatController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a seat",
+        "tags": [
+          "seats"
+        ]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/google-login": {
+      "post": {
+        "operationId": "AuthController_googleLogin",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/google": {
+      "get": {
+        "operationId": "AuthController_googleAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/google/callback": {
+      "get": {
+        "operationId": "AuthController_googleAuthRedirect",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/hall": {
+      "post": {
+        "operationId": "HallController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHallDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new hall",
+        "tags": [
+          "Hall"
+        ]
+      },
+      "get": {
+        "operationId": "HallController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all halls",
+        "tags": [
+          "Hall"
+        ]
+      }
+    },
+    "/api/hall/{id}": {
+      "get": {
+        "operationId": "HallController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a hall by ID",
+        "tags": [
+          "Hall"
+        ]
+      },
+      "put": {
+        "operationId": "HallController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHallDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update a hall",
+        "tags": [
+          "Hall"
+        ]
+      },
+      "delete": {
+        "operationId": "HallController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a hall",
+        "tags": [
+          "Hall"
+        ]
+      }
+    },
+    "/api/screening": {
+      "post": {
+        "operationId": "ScreeningController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScreeningDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new screening",
+        "tags": [
+          "Screening"
+        ]
+      },
+      "get": {
+        "operationId": "ScreeningController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get all screenings",
+        "tags": [
+          "Screening"
+        ]
+      }
+    },
+    "/api/screening/{id}": {
+      "get": {
+        "operationId": "ScreeningController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a screening by ID",
+        "tags": [
+          "Screening"
+        ]
+      },
+      "put": {
+        "operationId": "ScreeningController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScreeningDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update a screening",
+        "tags": [
+          "Screening"
+        ]
+      },
+      "delete": {
+        "operationId": "ScreeningController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a screening",
+        "tags": [
+          "Screening"
+        ]
+      }
+    },
+    "/api/payments/stripe-webhook": {
+      "post": {
+        "operationId": "PaymentsController_webhook",
+        "parameters": [
+          {
+            "name": "stripe-signature",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/api/orders/create-order": {
+      "post": {
+        "operationId": "OrdersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      }
+    },
+    "/api/orders/{orderId}": {
+      "get": {
+        "operationId": "OrdersController_findOne",
+        "parameters": [
+          {
+            "name": "orderId",
+            "required": true,
+            "in": "path",
+            "description": "Find one order by mongo id",
+            "schema": {
+              "example": "67d209ca361907350b2f5550",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      }
+    },
+    "/api/seed": {
+      "get": {
+        "operationId": "SeedController_executeSeed",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Seed"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "API Cine",
+    "description": "api documentation",
+    "version": "1.0",
+    "contact": {
+
+    }
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateImageDto": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ]
+      },
+      "CreateCommentDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "content"
+        ]
+      },
+      "CreateMovieDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Inception"
+          },
+          "year": {
+            "type": "number",
+            "example": 2010
+          },
+          "genre": {
+            "type": "string",
+            "example": "Sci-Fi"
+          },
+          "language": {
+            "type": "string",
+            "example": "English"
+          },
+          "duration": {
+            "type": "number",
+            "example": 148
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "https://image.url"
+          },
+          "trailerUrl": {
+            "type": "string",
+            "example": "https://trailer.url"
+          },
+          "description": {
+            "type": "string",
+            "example": "A mind-bending thriller"
+          },
+          "classification": {
+            "type": "string",
+            "example": "PG-13"
+          },
+          "format": {
+            "example": [
+              "2D",
+              "3D"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "releaseDate": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-06-15"
+          }
+        },
+        "required": [
+          "title",
+          "year",
+          "genre",
+          "language",
+          "duration",
+          "imageUrl",
+          "trailerUrl",
+          "description",
+          "classification",
+          "format",
+          "releaseDate"
+        ]
+      },
+      "UpdateMovieDto": {
+        "type": "object",
+        "properties": {
+
+        }
+      },
+      "CreateBookingDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "60d4a0e7a48b8c1e9c5e8b4c"
+          },
+          "screeningId": {
+            "type": "string",
+            "example": "60d4a0e7a48b8c1e9c5e8b4d"
+          },
+          "seatIds": {
+            "example": [
+              "60d4a0e7a48b8c1e9c5e8b4e",
+              "60d4a0e7a48b8c1e9c5e8b4f"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "totalPrice": {
+            "type": "number",
+            "example": 20
+          }
+        },
+        "required": [
+          "userId",
+          "screeningId",
+          "seatIds",
+          "totalPrice"
+        ]
+      },
+      "UpdateBookingDto": {
+        "type": "object",
+        "properties": {
+
+        }
+      },
+      "CreateSeatDto": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "number",
+            "example": 1
+          },
+          "row": {
+            "type": "string",
+            "example": "A"
+          },
+          "hallId": {
+            "type": "string",
+            "example": "60d4a0e7a48b8c1e9c5e8b4c"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "number",
+          "row",
+          "hallId"
+        ]
+      },
+      "UpdateSeatDto": {
+        "type": "object",
+        "properties": {
+
+        }
+      },
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "name"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "CreateHallDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Hall 1"
+          },
+          "capacity": {
+            "type": "number",
+            "example": 150
+          }
+        },
+        "required": [
+          "name",
+          "capacity"
+        ]
+      },
+      "UpdateHallDto": {
+        "type": "object",
+        "properties": {
+
+        }
+      },
+      "CreateScreeningDto": {
+        "type": "object",
+        "properties": {
+          "movieId": {
+            "type": "string",
+            "example": "65a0f4f6b1e3c5d7b2a0c3d1"
+          },
+          "hallId": {
+            "type": "string",
+            "example": "65a0f4f6b1e3c5d7b2a0c3d2"
+          },
+          "schedule": {
+            "type": "string",
+            "example": "2025-03-01T18:00:00.000Z"
+          },
+          "price": {
+            "type": "number",
+            "example": 15.99
+          }
+        },
+        "required": [
+          "movieId",
+          "hallId",
+          "schedule",
+          "price"
+        ]
+      },
+      "UpdateScreeningDto": {
+        "type": "object",
+        "properties": {
+
+        }
+      },
+      "OrderItemDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "example": "60d4a0e7a48b8c1e9c5e8b4d"
+          },
+          "seatIds": {
+            "example": [
+              "60d4a0e7a48b8c1e9c5e8b4e",
+              "60d4a0e7a48b8c1e9c5e8b4f"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "productId",
+          "seatIds"
+        ]
+      },
+      "CreateOrderDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            }
+          },
+          "buyerUserId": {
+            "type": "string",
+            "example": "60d4a0e7a48b8c1e9c5e8b4c"
+          },
+          "discounts": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "items",
+          "buyerUserId"
+        ]
+      }
+    }
+  }
+}

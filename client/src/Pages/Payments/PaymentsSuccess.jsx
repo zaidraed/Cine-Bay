@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
+import { Navbar } from "../../Components/Navbar";
+import { Footer } from "../../Components/Footer";
 import Button from "../../Components/Button";
 
 export const PaymentsSuccess = () => {

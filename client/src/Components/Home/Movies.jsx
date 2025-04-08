@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMovies, useScreenings } from "../../Hooks/useMovies";
-import MovieCard from "./MovieCard";
+import { MovieCard } from "./MovieCard";
 
 const Movies = () => {
   const movies = useMovies();
@@ -47,21 +47,38 @@ const Movies = () => {
     }
   }, [movies.data, screenings.data]);
 
-  if (movies.isLoading || screenings.isLoading) return <p>Loading...</p>;
-  if (movies.isError) return <p>Error: {movies.error.message}</p>;
+  if (movies.isLoading || screenings.isLoading) {
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="h-[400px] bg-zinc-800 rounded-lg animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
+  if (movies.isError) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-red-500">
+          Error al cargar películas: {movies.error.message}
+        </p>
+        <button
+          onClick={() => movies.refetch()}
+          className="mt-4 px-4 py-2 bg-blue-600 rounded"
+        >
+          Reintentar
+        </button>
+      </div>
+    );
+  }
   if (screenings.isError) return <p>Error al cargar los horarios</p>;
 
   if (!Array.isArray(movies.data)) {
     return <p>No se encontraron películas.</p>;
   }
-
-  const movieRatingsMap = {
-    G: "A", // Apta para todo público
-    PG: "A", // Apta para todo público (con supervisión)
-    "PG-13": "B", // Mayores de 13 años
-    R: "C", // Mayores de 17 años
-    "NC-17": "D", // Solo adultos
-  };
 
   return (
     <section id="Cartelera" className="container mx-auto px-2">
@@ -71,17 +88,7 @@ const Movies = () => {
         {moviesWithTimes.map((movie) => (
           <MovieCard
             key={movie.id}
-            cover={movie.imageUrl}
-            title={movie.title}
-            releaseDate={
-              new Date(movie.releaseDate).toLocaleDateString("es-ES") ||
-              "Sin fecha"
-            }
-            duration={movie.duration}
-            genre={movie.genre}
-            rating={movieRatingsMap[movie.classification]}
-            format={movie.format || "2D"}
-            // time={movie.formattedTimes}
+            movie={movie} // Pasa el objeto completo
           />
         ))}
       </div>

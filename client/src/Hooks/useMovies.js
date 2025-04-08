@@ -37,3 +37,22 @@ export const useScreenings = (screeningId = null) => {
     cacheTime: 1000 * 60 * 30,
   });
 };
+export const useUpcomingMovies = () => {
+  return useQuery({
+    queryKey: ["upcoming-movies"],
+    queryFn: async () => {
+      const response = await fetchData("/movies/upcoming", "GET");
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        throw new Error("La respuesta no es un array de películas");
+      }
+
+      return data;
+    },
+    staleTime: 1000 * 60 * 60, // 1 hora
+  });
+};

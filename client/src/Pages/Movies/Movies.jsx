@@ -1,7 +1,3 @@
-import React from 'react'
-
 export const Movies = () => {
-  return (
-    <div>Movies</div>
-  )
-}
+  return <div>Movies</div>;
+};
