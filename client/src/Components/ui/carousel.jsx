@@ -2,6 +2,8 @@ import * as React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./button";
+import PropTypes from "prop-types";
+import { cn } from "../../lib/utils";
 
 export function Carousel({
   children,
@@ -55,6 +57,15 @@ export function Carousel({
     const timer = setInterval(goToNext, interval);
     return () => clearInterval(timer);
   }, [autoPlay, interval, goToNext]);
+
+  Carousel.propTypes = {
+    children: PropTypes.node.isRequired,
+    autoPlay: PropTypes.bool,
+    interval: PropTypes.number,
+    showControls: PropTypes.bool,
+    showDots: PropTypes.bool,
+    className: PropTypes.string,
+  };
 
   return (
     <div
@@ -114,4 +125,8 @@ export const CarouselItem = ({ children, className }) => {
   return (
     <div className={cn("flex-shrink-0 w-full", className)}>{children}</div>
   );
+};
+CarouselItem.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };

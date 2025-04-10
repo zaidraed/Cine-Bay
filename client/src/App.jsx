@@ -9,14 +9,18 @@ import {
   PaymentsSuccess,
   NotFound,
   MovieDetails,
+  DashboardPage,
 } from "./Pages";
 import "@fontsource/poppins";
-
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
   },
   {
     path: "/Register",
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/movie/:title",
-    element: <MovieDetails />, 
+    element: <MovieDetails />,
   },
   {
     path: "/NewMovie",

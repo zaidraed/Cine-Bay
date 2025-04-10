@@ -22,7 +22,7 @@ const GoogleButton = ({ setIsLoading }) => {
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error during Google login:", error);
       setLoginError(error.message || "Failed to login with Google");

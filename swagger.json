@@ -21,9 +21,7 @@
           }
         },
         "summary": "Upload a new image",
-        "tags": [
-          "images"
-        ]
+        "tags": ["images"]
       },
       "get": {
         "operationId": "ImagesController_findAll",
@@ -34,9 +32,7 @@
           }
         },
         "summary": "Get all images",
-        "tags": [
-          "images"
-        ]
+        "tags": ["images"]
       }
     },
     "/api/images/{id}": {
@@ -58,9 +54,7 @@
           }
         },
         "summary": "Get one image by id",
-        "tags": [
-          "images"
-        ]
+        "tags": ["images"]
       },
       "delete": {
         "operationId": "ImagesController_remove",
@@ -80,9 +74,7 @@
           }
         },
         "summary": "Delete an image",
-        "tags": [
-          "images"
-        ]
+        "tags": ["images"]
       }
     },
     "/api/images/{id}/comments": {
@@ -114,9 +106,7 @@
           }
         },
         "summary": "Add a comment to an image",
-        "tags": [
-          "images"
-        ]
+        "tags": ["images"]
       }
     },
     "/api/movies": {
@@ -139,9 +129,7 @@
           }
         },
         "summary": "Create a new movie",
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
       },
       "get": {
         "operationId": "MoviesController_findAll",
@@ -152,9 +140,7 @@
           }
         },
         "summary": "Get all movies",
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
       }
     },
     "/api/movies/{id}": {
@@ -176,9 +162,7 @@
           }
         },
         "summary": "Get a movie by ID",
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
       },
       "put": {
         "operationId": "MoviesController_update",
@@ -208,9 +192,7 @@
           }
         },
         "summary": "Update a movie",
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
       },
       "patch": {
         "operationId": "MoviesController_updateMovie",
@@ -239,9 +221,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
       },
       "delete": {
         "operationId": "MoviesController_remove",
@@ -261,9 +241,30 @@
           }
         },
         "summary": "Delete a movie",
-        "tags": [
-          "Movies"
-        ]
+        "tags": ["Movies"]
+      },
+      "/api/movies/upcoming": {
+        "get": {
+          "operationId": "MoviesController_findUpcoming",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of upcoming movies",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Movie"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "summary": "Get all upcoming movies",
+          "tags": ["Movies"]
+        }
       }
     },
     "/api/booking": {
@@ -286,9 +287,7 @@
           }
         },
         "summary": "Create a new booking",
-        "tags": [
-          "Booking"
-        ]
+        "tags": ["Booking"]
       },
       "get": {
         "operationId": "BookingController_findAll",
@@ -299,9 +298,7 @@
           }
         },
         "summary": "Get all bookings",
-        "tags": [
-          "Booking"
-        ]
+        "tags": ["Booking"]
       }
     },
     "/api/booking/{id}": {
@@ -323,9 +320,7 @@
           }
         },
         "summary": "Get a booking by ID",
-        "tags": [
-          "Booking"
-        ]
+        "tags": ["Booking"]
       },
       "put": {
         "operationId": "BookingController_update",
@@ -355,9 +350,7 @@
           }
         },
         "summary": "Update a booking",
-        "tags": [
-          "Booking"
-        ]
+        "tags": ["Booking"]
       },
       "delete": {
         "operationId": "BookingController_remove",
@@ -377,9 +370,7 @@
           }
         },
         "summary": "Delete a booking",
-        "tags": [
-          "Booking"
-        ]
+        "tags": ["Booking"]
       }
     },
     "/api/notifications": {
@@ -391,9 +382,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Notifications"
-        ]
+        "tags": ["Notifications"]
       }
     },
     "/api/notifications/{userId}": {
@@ -414,9 +403,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Notifications"
-        ]
+        "tags": ["Notifications"]
       }
     },
     "/api/notifications/{id}": {
@@ -437,9 +424,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Notifications"
-        ]
+        "tags": ["Notifications"]
       }
     },
     "/api/seats": {
@@ -462,9 +447,7 @@
           }
         },
         "summary": "Create a new seat",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       },
       "get": {
         "operationId": "SeatController_findAll",
@@ -475,9 +458,7 @@
           }
         },
         "summary": "Get all seats",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/seats/bulk": {
@@ -503,9 +484,7 @@
           }
         },
         "summary": "Create multiple seats at once",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/seats/generate/{hallId}": {
@@ -527,9 +506,7 @@
           }
         },
         "summary": "Generate all seats for a hall",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/seats/hall/{hallId}": {
@@ -551,9 +528,7 @@
           }
         },
         "summary": "Get all seats for a specific hall",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/seats/available/{screeningId}": {
@@ -575,9 +550,7 @@
           }
         },
         "summary": "Get all available seats for a specific screening",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/seats/{id}": {
@@ -599,9 +572,7 @@
           }
         },
         "summary": "Get a seat by id",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       },
       "put": {
         "operationId": "SeatController_update",
@@ -631,9 +602,7 @@
           }
         },
         "summary": "Update a seat",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       },
       "delete": {
         "operationId": "SeatController_remove",
@@ -653,9 +622,7 @@
           }
         },
         "summary": "Delete a seat",
-        "tags": [
-          "seats"
-        ]
+        "tags": ["seats"]
       }
     },
     "/api/auth/register": {
@@ -677,9 +644,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/login": {
@@ -701,9 +666,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/google-login": {
@@ -715,9 +678,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/google": {
@@ -729,9 +690,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/google/callback": {
@@ -743,9 +702,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/hall": {
@@ -768,9 +725,7 @@
           }
         },
         "summary": "Create a new hall",
-        "tags": [
-          "Hall"
-        ]
+        "tags": ["Hall"]
       },
       "get": {
         "operationId": "HallController_findAll",
@@ -781,9 +736,7 @@
           }
         },
         "summary": "Get all halls",
-        "tags": [
-          "Hall"
-        ]
+        "tags": ["Hall"]
       }
     },
     "/api/hall/{id}": {
@@ -805,9 +758,7 @@
           }
         },
         "summary": "Get a hall by ID",
-        "tags": [
-          "Hall"
-        ]
+        "tags": ["Hall"]
       },
       "put": {
         "operationId": "HallController_update",
@@ -837,9 +788,7 @@
           }
         },
         "summary": "Update a hall",
-        "tags": [
-          "Hall"
-        ]
+        "tags": ["Hall"]
       },
       "delete": {
         "operationId": "HallController_remove",
@@ -859,9 +808,7 @@
           }
         },
         "summary": "Delete a hall",
-        "tags": [
-          "Hall"
-        ]
+        "tags": ["Hall"]
       }
     },
     "/api/screening": {
@@ -884,9 +831,7 @@
           }
         },
         "summary": "Create a new screening",
-        "tags": [
-          "Screening"
-        ]
+        "tags": ["Screening"]
       },
       "get": {
         "operationId": "ScreeningController_findAll",
@@ -897,9 +842,7 @@
           }
         },
         "summary": "Get all screenings",
-        "tags": [
-          "Screening"
-        ]
+        "tags": ["Screening"]
       }
     },
     "/api/screening/{id}": {
@@ -921,9 +864,7 @@
           }
         },
         "summary": "Get a screening by ID",
-        "tags": [
-          "Screening"
-        ]
+        "tags": ["Screening"]
       },
       "put": {
         "operationId": "ScreeningController_update",
@@ -953,9 +894,7 @@
           }
         },
         "summary": "Update a screening",
-        "tags": [
-          "Screening"
-        ]
+        "tags": ["Screening"]
       },
       "delete": {
         "operationId": "ScreeningController_remove",
@@ -975,9 +914,7 @@
           }
         },
         "summary": "Delete a screening",
-        "tags": [
-          "Screening"
-        ]
+        "tags": ["Screening"]
       }
     },
     "/api/payments/stripe-webhook": {
@@ -998,9 +935,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Payments"
-        ]
+        "tags": ["Payments"]
       }
     },
     "/api/orders/create-order": {
@@ -1022,9 +957,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Orders"
-        ]
+        "tags": ["Orders"]
       }
     },
     "/api/orders/{orderId}": {
@@ -1047,9 +980,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Orders"
-        ]
+        "tags": ["Orders"]
       }
     },
     "/api/seed": {
@@ -1061,9 +992,7 @@
             "description": ""
           }
         },
-        "tags": [
-          "Seed"
-        ]
+        "tags": ["Seed"]
       }
     }
   },
@@ -1071,9 +1000,7 @@
     "title": "API Cine",
     "description": "api documentation",
     "version": "1.0",
-    "contact": {
-
-    }
+    "contact": {}
   },
   "tags": [],
   "servers": [],
@@ -1097,9 +1024,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "file"
-        ]
+        "required": ["file"]
       },
       "CreateCommentDto": {
         "type": "object",
@@ -1108,9 +1033,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "content"
-        ]
+        "required": ["content"]
       },
       "CreateMovieDto": {
         "type": "object",
@@ -1152,10 +1075,7 @@
             "example": "PG-13"
           },
           "format": {
-            "example": [
-              "2D",
-              "3D"
-            ],
+            "example": ["2D", "3D"],
             "type": "array",
             "items": {
               "type": "string"
@@ -1183,9 +1103,7 @@
       },
       "UpdateMovieDto": {
         "type": "object",
-        "properties": {
-
-        }
+        "properties": {}
       },
       "CreateBookingDto": {
         "type": "object",
@@ -1199,10 +1117,7 @@
             "example": "60d4a0e7a48b8c1e9c5e8b4d"
           },
           "seatIds": {
-            "example": [
-              "60d4a0e7a48b8c1e9c5e8b4e",
-              "60d4a0e7a48b8c1e9c5e8b4f"
-            ],
+            "example": ["60d4a0e7a48b8c1e9c5e8b4e", "60d4a0e7a48b8c1e9c5e8b4f"],
             "type": "array",
             "items": {
               "type": "string"
@@ -1213,18 +1128,11 @@
             "example": 20
           }
         },
-        "required": [
-          "userId",
-          "screeningId",
-          "seatIds",
-          "totalPrice"
-        ]
+        "required": ["userId", "screeningId", "seatIds", "totalPrice"]
       },
       "UpdateBookingDto": {
         "type": "object",
-        "properties": {
-
-        }
+        "properties": {}
       },
       "CreateSeatDto": {
         "type": "object",
@@ -1246,17 +1154,11 @@
             "example": true
           }
         },
-        "required": [
-          "number",
-          "row",
-          "hallId"
-        ]
+        "required": ["number", "row", "hallId"]
       },
       "UpdateSeatDto": {
         "type": "object",
-        "properties": {
-
-        }
+        "properties": {}
       },
       "RegisterDto": {
         "type": "object",
@@ -1274,11 +1176,7 @@
             "example": "John Doe"
           }
         },
-        "required": [
-          "email",
-          "password",
-          "name"
-        ]
+        "required": ["email", "password", "name"]
       },
       "LoginDto": {
         "type": "object",
@@ -1292,10 +1190,7 @@
             "example": "password123"
           }
         },
-        "required": [
-          "email",
-          "password"
-        ]
+        "required": ["email", "password"]
       },
       "CreateHallDto": {
         "type": "object",
@@ -1309,16 +1204,11 @@
             "example": 150
           }
         },
-        "required": [
-          "name",
-          "capacity"
-        ]
+        "required": ["name", "capacity"]
       },
       "UpdateHallDto": {
         "type": "object",
-        "properties": {
-
-        }
+        "properties": {}
       },
       "CreateScreeningDto": {
         "type": "object",
@@ -1340,18 +1230,11 @@
             "example": 15.99
           }
         },
-        "required": [
-          "movieId",
-          "hallId",
-          "schedule",
-          "price"
-        ]
+        "required": ["movieId", "hallId", "schedule", "price"]
       },
       "UpdateScreeningDto": {
         "type": "object",
-        "properties": {
-
-        }
+        "properties": {}
       },
       "OrderItemDto": {
         "type": "object",
@@ -1361,20 +1244,14 @@
             "example": "60d4a0e7a48b8c1e9c5e8b4d"
           },
           "seatIds": {
-            "example": [
-              "60d4a0e7a48b8c1e9c5e8b4e",
-              "60d4a0e7a48b8c1e9c5e8b4f"
-            ],
+            "example": ["60d4a0e7a48b8c1e9c5e8b4e", "60d4a0e7a48b8c1e9c5e8b4f"],
             "type": "array",
             "items": {
               "type": "string"
             }
           }
         },
-        "required": [
-          "productId",
-          "seatIds"
-        ]
+        "required": ["productId", "seatIds"]
       },
       "CreateOrderDto": {
         "type": "object",
@@ -1393,10 +1270,7 @@
             "type": "object"
           }
         },
-        "required": [
-          "items",
-          "buyerUserId"
-        ]
+        "required": ["items", "buyerUserId"]
       }
     }
   }

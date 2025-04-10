@@ -15,6 +15,7 @@ import { SeatModule } from "./seat/seat.module";
 import { SeedModule } from "./seed/seed.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,6 +34,7 @@ import { AppService } from "./app.service";
     NotificationsModule,
     SeatModule,
     ...(process.env.NODE_ENV !== "production" ? [SeedModule] : []),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

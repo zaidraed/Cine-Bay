@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/authStore";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Este campo es requerido"),
@@ -14,7 +16,7 @@ const loginSchema = z.object({
 });
 
 export const Login = () => {
-  const { mutate: login } = useLogin();
+  const { mutate } = useLogin();
   const isMutating = useIsMutating();
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
@@ -26,8 +28,23 @@ export const Login = () => {
     },
   });
 
+  const navigate = useNavigate();
+  const { login: loginStore } = useAuthStore();
+
   const onLoginSubmit = (data) => {
-    login(data);
+    mutate(data, {
+      onSuccess: (response) => {
+        loginStore({
+          user: response.user,
+          access_token: response.accessToken,
+        });
+
+        navigate("/dashboard");
+      },
+      onError: () => {
+        alert("Credenciales inválidas");
+      },
+    });
   };
 
   return (
