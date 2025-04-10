@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   Delete,
+  InternalServerErrorException,
 } from "@nestjs/common";
 import { HallService } from "./hall.service";
 import { SeatService } from "../seat/seat.service";
@@ -23,14 +24,21 @@ export class HallController {
 
   @Post()
   async create(@Body() createHallDto: CreateHallDto) {
-    const hall = await this.hallService.create(createHallDto);
+    try {
+      const hall = await this.hallService.create(createHallDto);
 
-    // Generate seats asynchronously
-    this.seatService
-      .generateHallSeats(hall.id)
-      .catch((err) => console.error("Error generating seats:", err));
+      // Genera asientos (si es necesario)
+      if (this.seatService) {
+        await this.seatService.generateHallSeats(hall.id).catch((err) => {
+          console.error("Error generando asientos:", err);
+        });
+      }
 
-    return hall;
+      return hall;
+    } catch (error) {
+      console.error("Error en HallController:", error);
+      throw new InternalServerErrorException("Error al crear la sala");
+    }
   }
 
   @Get()

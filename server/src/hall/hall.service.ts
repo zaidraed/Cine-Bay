@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { UpdateHallDto } from "./dto/update-hall.dto";
 import { CreateHallDto } from "./dto/create-hall.dto";
@@ -7,8 +7,13 @@ import { CreateHallDto } from "./dto/create-hall.dto";
 export class HallService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(data: CreateHallDto) {
-    return this.prisma.hall.create({ data });
+  async create(data: CreateHallDto) {
+    try {
+      return await this.prisma.hall.create({ data });
+    } catch (error) {
+      console.error("Error en Prisma:", error);
+      throw new InternalServerErrorException("Error en la base de datos");
+    }
   }
 
   findAll() {
