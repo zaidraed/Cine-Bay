@@ -18,6 +18,7 @@ export const fetchData = async (
     } else if (body && method !== "GET") {
       headers["Content-Type"] = "application/json";
       options.body = JSON.stringify(body);
+      console.log("🔍 Enviando a", path, JSON.parse(options.body));
     }
 
     if (withCredentials) {

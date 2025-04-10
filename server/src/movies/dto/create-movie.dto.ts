@@ -6,6 +6,7 @@ import {
   isBoolean,
   IsDate,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   IsUrl,
@@ -17,7 +18,8 @@ export class CreateMovieDto {
   title: string;
 
   @ApiProperty({ example: 2010 })
-  @IsInt()
+  @Type(() => Number)
+  @IsNumber()
   year: number;
 
   @ApiProperty({ example: "Sci-Fi" })
