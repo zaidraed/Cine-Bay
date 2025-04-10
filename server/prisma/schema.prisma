@@ -85,7 +85,8 @@ model Hall {
   name       String
   capacity   Int
   screenings Screening[]
-  seats      Seat[]    // Relación con asientos
+  seats      Seat[]  
+  seatsGenerated Boolean @default(false) 
 }
 model Screening {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId

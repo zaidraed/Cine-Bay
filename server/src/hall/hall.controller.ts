@@ -8,6 +8,7 @@ import {
   Delete,
 } from "@nestjs/common";
 import { HallService } from "./hall.service";
+import { SeatService } from "../seat/seat.service";
 import { UpdateHallDto } from "./dto/update-hall.dto";
 import { CreateHallDto } from "./dto/create-hall.dto";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
@@ -15,12 +16,19 @@ import { ApiTags, ApiOperation } from "@nestjs/swagger";
 @ApiTags("Hall")
 @Controller("hall")
 export class HallController {
+  seatService: any;
   constructor(private readonly hallService: HallService) {}
 
   @Post()
-  @ApiOperation({ summary: "Create a new hall" })
-  create(@Body() createHallDto: CreateHallDto) {
-    return this.hallService.create(createHallDto);
+  async create(@Body() createHallDto: CreateHallDto) {
+    const hall = await this.hallService.create(createHallDto);
+
+    // Generate seats asynchronously
+    this.seatService
+      .generateHallSeats(hall.id)
+      .catch((err) => console.error("Error generating seats:", err));
+
+    return hall;
   }
 
   @Get()

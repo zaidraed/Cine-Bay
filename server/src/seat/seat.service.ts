@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateSeatDto } from "./dto/create-seat.dto";
 import { UpdateSeatDto } from "./dto/update-seat.dto";
-import { Seat } from "@prisma/client"; // Asegurar que importamos el tipo Seat
-
+import { Seat, Hall, Prisma } from "@prisma/client";
 @Injectable()
 export class SeatService {
   constructor(private readonly prisma: PrismaService) {}
@@ -46,7 +45,7 @@ export class SeatService {
   }
 
   async generateHallSeats(hallId: string) {
-    // Verificar que la sala existe
+    // Verify hall exists
     const hall = await this.prisma.hall.findUnique({
       where: { id: hallId },
     });
@@ -55,51 +54,36 @@ export class SeatService {
       throw new NotFoundException(`Hall with ID ${hallId} not found`);
     }
 
-    // Configuración para generar 150 asientos
-    // Por ejemplo: 15 filas (A-O) con 10 asientos cada una
-    const rows = [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-    ];
-    const seatsPerRow = 10;
-    const seats: Seat[] = []; // Tipado correcto del array
+    // Delete existing seats first
+    await this.prisma.seat.deleteMany({
+      where: { hallId },
+    });
 
-    for (const row of rows) {
-      for (let number = 1; number <= seatsPerRow; number++) {
-        try {
-          const seat = await this.prisma.seat.create({
-            data: {
-              row,
-              number,
-              hallId,
-              isActive: true,
-            },
-          });
-          seats.push(seat);
-        } catch (error) {
-          console.error(
-            `Error creating seat ${row}${number}: ${error.message}`
-          );
-        }
-      }
-    }
+    // Generate seats configuration
+    const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    const seatsPerRow = Math.ceil(hall.capacity / rows.length);
 
-    return seats;
+    // Explicitly type the seats data
+    const seatsToCreate: Prisma.SeatCreateManyInput[] = rows.flatMap((row) =>
+      Array.from({ length: seatsPerRow }, (_, i) => ({
+        row,
+        number: i + 1,
+        hallId,
+        isActive: true,
+      }))
+    );
+
+    // Create all seats in a single transaction
+    return this.prisma.$transaction([
+      this.prisma.seat.createMany({
+        data: seatsToCreate,
+      }),
+      this.prisma.hall.update({
+        where: { id: hallId },
+        data: { seatsGenerated: true },
+      }),
+    ]);
   }
-
   findAll() {
     return this.prisma.seat.findMany();
   }

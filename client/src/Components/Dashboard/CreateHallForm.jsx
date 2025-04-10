@@ -7,19 +7,21 @@ const CreateHallForm = ({ accessToken, onCreated }) => {
     name: "",
     capacity: "",
   });
-  CreateHallForm.propTypes = {
-    accessToken: PropTypes.string.isRequired,
-    onCreated: PropTypes.func,
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
   const handleSubmit = async () => {
     const { name, capacity } = formHall;
 
     if (!name || !capacity || isNaN(Number(capacity))) {
-      alert(
-        "Nombre y capacidad son obligatorios (capacidad debe ser numérica)."
-      );
+      setError("Name and capacity are required (capacity must be a number)");
       return;
     }
+
+    setIsSubmitting(true);
+    setError(null);
+    setSuccess(null);
 
     try {
       const res = await fetchData(
@@ -32,47 +34,88 @@ const CreateHallForm = ({ accessToken, onCreated }) => {
         accessToken
       );
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to create hall");
+      }
+
       const data = await res.json();
-
-      await fetchData(`/seats/generate/${data.id}`, "POST", null, accessToken);
-
-      alert("Sala creada y asientos generados.");
+      setSuccess(
+        `Hall "${data.name}" created successfully! Seats are being generated.`
+      );
       setFormHall({ name: "", capacity: "" });
       onCreated && onCreated();
     } catch (err) {
-      console.error(err);
-      alert("Error al crear la sala.");
+      console.error("Error:", err);
+      setError(err.message || "Failed to create hall");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">🏟️ Crear Sala</h2>
+    <div className="space-y-4 max-w-md mx-auto">
+      <h2 className="text-xl font-bold text-center">🏟️ Create New Hall</h2>
 
-      <input
-        type="text"
-        placeholder="Nombre de la sala"
-        className="border p-2 rounded w-full"
-        value={formHall.name}
-        onChange={(e) => setFormHall({ ...formHall, name: e.target.value })}
-      />
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {error}
+        </div>
+      )}
 
-      <input
-        type="number"
-        placeholder="Capacidad"
-        className="border p-2 rounded w-full"
-        value={formHall.capacity}
-        onChange={(e) => setFormHall({ ...formHall, capacity: e.target.value })}
-      />
+      {success && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+          {success}
+        </div>
+      )}
+
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">
+          Hall Name
+        </label>
+        <input
+          type="text"
+          placeholder="Main Hall"
+          className="border p-2 rounded w-full"
+          value={formHall.name}
+          onChange={(e) => setFormHall({ ...formHall, name: e.target.value })}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">
+          Capacity
+        </label>
+        <input
+          type="number"
+          placeholder="150"
+          className="border p-2 rounded w-full"
+          value={formHall.capacity}
+          onChange={(e) =>
+            setFormHall({ ...formHall, capacity: e.target.value })
+          }
+          min="1"
+        />
+      </div>
 
       <button
         onClick={handleSubmit}
-        className="mt-2 px-4 py-2 bg-green-600 text-white rounded"
+        disabled={isSubmitting}
+        className={`mt-4 px-4 py-2 rounded w-full ${
+          isSubmitting
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-green-600 hover:bg-green-700 text-white"
+        }`}
       >
-        Crear Sala
+        {isSubmitting ? "Creating..." : "Create Hall"}
       </button>
     </div>
   );
+};
+
+CreateHallForm.propTypes = {
+  accessToken: PropTypes.string.isRequired,
+  onCreated: PropTypes.func,
 };
 
 export default CreateHallForm;

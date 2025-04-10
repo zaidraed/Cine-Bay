@@ -64,7 +64,7 @@ export class CreateMovieDto {
   releaseDate: Date;
 
   @ApiProperty({ example: "false" })
+  @IsOptional()
   @IsBoolean()
   isUpcoming: boolean;
-  example: false;
 }
