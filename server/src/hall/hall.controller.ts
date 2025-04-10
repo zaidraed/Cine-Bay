@@ -16,8 +16,10 @@ import { ApiTags, ApiOperation } from "@nestjs/swagger";
 @ApiTags("Hall")
 @Controller("hall")
 export class HallController {
-  seatService: any;
-  constructor(private readonly hallService: HallService) {}
+  constructor(
+    private readonly hallService: HallService,
+    private readonly seatService: SeatService
+  ) {}
 
   @Post()
   async create(@Body() createHallDto: CreateHallDto) {

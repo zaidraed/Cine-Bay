@@ -14,8 +14,12 @@ const CreateHallForm = ({ accessToken, onCreated }) => {
   const handleSubmit = async () => {
     const { name, capacity } = formHall;
 
-    if (!name || !capacity || isNaN(Number(capacity))) {
-      setError("Name and capacity are required (capacity must be a number)");
+    const parsedCapacity = parseInt(capacity, 10);
+
+    if (!name || isNaN(parsedCapacity) || parsedCapacity <= 0) {
+      setError(
+        "Name and capacity are required (capacity must be a positive number)"
+      );
       return;
     }
 
@@ -29,25 +33,25 @@ const CreateHallForm = ({ accessToken, onCreated }) => {
         "POST",
         {
           name,
-          capacity: Number(capacity),
+          capacity: parsedCapacity,
         },
         accessToken
       );
 
       if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to create hall");
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(
+          errorData.message || `Failed to create hall (Status: ${res.status})`
+        );
       }
 
       const data = await res.json();
-      setSuccess(
-        `Hall "${data.name}" created successfully! Seats are being generated.`
-      );
+      setSuccess(`Hall "${data.name}" created successfully!`);
       setFormHall({ name: "", capacity: "" });
       onCreated && onCreated();
     } catch (err) {
-      console.error("Error:", err);
-      setError(err.message || "Failed to create hall");
+      console.error("Error creating hall:", err);
+      setError(err.message || "Failed to create hall. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
