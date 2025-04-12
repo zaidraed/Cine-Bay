@@ -23,16 +23,16 @@ export class HallController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: "Create a new hall" })
   async create(@Body() createHallDto: CreateHallDto) {
     try {
+      // 1. Crear la sala primero (operación independiente)
       const hall = await this.hallService.create(createHallDto);
 
-      // Genera asientos (si es necesario)
-      if (this.seatService) {
-        await this.seatService.generateHallSeats(hall.id).catch((err) => {
-          console.error("Error generando asientos:", err);
-        });
-      }
+      // 2. Generar asientos después (sin transacción)
+      await this.seatService.generateHallSeats(hall.id).catch((err) => {
+        console.error("Error generando asientos (no crítico):", err);
+      });
 
       return hall;
     } catch (error) {

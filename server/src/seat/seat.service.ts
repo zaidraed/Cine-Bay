@@ -45,44 +45,46 @@ export class SeatService {
   }
 
   async generateHallSeats(hallId: string) {
-    // Verify hall exists
-    const hall = await this.prisma.hall.findUnique({
-      where: { id: hallId },
-    });
+    try {
+      // Configuración de asientos - ajusta según necesidades
+      const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+      const seatsPerRow = 10;
 
-    if (!hall) {
-      throw new NotFoundException(`Hall with ID ${hallId} not found`);
-    }
+      // Generar datos de asientos según el schema
+      const seatsData: Prisma.SeatCreateManyInput[] = [];
 
-    // Delete existing seats first
-    await this.prisma.seat.deleteMany({
-      where: { hallId },
-    });
+      rows.forEach((row, rowIndex) => {
+        for (let seatNum = 1; seatNum <= seatsPerRow; seatNum++) {
+          seatsData.push({
+            number: rowIndex * seatsPerRow + seatNum, // Número único continuo
+            row: row,
+            hallId: hallId,
+            isActive: true, // Campo requerido según schema
+            // createdAt y updatedAt se generan automáticamente
+          });
+        }
+      });
 
-    // Generate seats configuration
-    const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-    const seatsPerRow = Math.ceil(hall.capacity / rows.length);
+      // Crear asientos usando createMany
+      const result = await this.prisma.seat.createMany({
+        data: seatsData,
+      });
 
-    // Explicitly type the seats data
-    const seatsToCreate: Prisma.SeatCreateManyInput[] = rows.flatMap((row) =>
-      Array.from({ length: seatsPerRow }, (_, i) => ({
-        row,
-        number: i + 1,
-        hallId,
-        isActive: true,
-      }))
-    );
-
-    // Create all seats in a single transaction
-    return this.prisma.$transaction([
-      this.prisma.seat.createMany({
-        data: seatsToCreate,
-      }),
-      this.prisma.hall.update({
+      // Actualizar el estado de la sala
+      await this.prisma.hall.update({
         where: { id: hallId },
         data: { seatsGenerated: true },
-      }),
-    ]);
+      });
+
+      return {
+        success: true,
+        seatsCreated: result.count,
+        message: `Se generaron ${result.count} asientos para la sala ${hallId}`,
+      };
+    } catch (error) {
+      console.error("Error en generateHallSeats:", error);
+      throw new Error("Error al generar los asientos");
+    }
   }
   findAll() {
     return this.prisma.seat.findMany();

@@ -9,7 +9,12 @@ export class HallService {
 
   async create(data: CreateHallDto) {
     try {
-      return await this.prisma.hall.create({ data });
+      return await this.prisma.hall.create({
+        data: {
+          name: data.name,
+          capacity: data.capacity,
+        },
+      });
     } catch (error) {
       console.error("Error en Prisma:", error);
       throw new InternalServerErrorException("Error en la base de datos");
