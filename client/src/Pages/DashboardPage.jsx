@@ -1,7 +1,7 @@
 import useAuthStore from "../store/authStore";
 import AdminDashboard from "../Components/Dashboard/AdminDashboard";
 import { EmployeeDashboard } from "../Components/Dashboard/EmployeeDashboard";
-import { UserDashboard } from "../components/Dashboard/UserDashboard";
+import { UserDashboard } from "../Components/Dashboard/UserDashboard";
 import { useLocation } from "react-router-dom";
 
 const DashboardPage = () => {
