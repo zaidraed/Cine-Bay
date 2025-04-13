@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
-  Home,
+  Landing,
   Register,
   Login,
   Movies,
@@ -16,7 +16,7 @@ import "@fontsource/poppins";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Landing />,
   },
   {
     path: "/dashboard",

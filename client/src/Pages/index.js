@@ -1,4 +1,4 @@
-import { Home } from "./Home/Home";
+import Landing from "./landing";
 import { Register } from "./Register/Register";
 import { Login } from "./Login/Login";
 import { Movies } from "./Movies/Movies";
@@ -10,7 +10,7 @@ import MovieDetails from "./Movies/MovieDetails";
 import DashboardPage from "./DashboardPage";
 
 export {
-  Home,
+  Landing,
   Register,
   Login,
   Movies,

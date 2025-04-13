@@ -1,10 +1,14 @@
 import useAuthStore from "../store/authStore";
 import AdminDashboard from "../Components/Dashboard/AdminDashboard";
-import { EmployeeDashboard } from "../components/Dashboard/EmployeeDashboard";
+import { EmployeeDashboard } from "../Components/Dashboard/EmployeeDashboard";
 import { UserDashboard } from "../components/Dashboard/UserDashboard";
+import { useLocation } from "react-router-dom";
 
 const DashboardPage = () => {
   const { user, isAuthenticated } = useAuthStore();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const overrideRole = params.get("as");
 
   if (!isAuthenticated || !user) {
     return (
@@ -14,8 +18,10 @@ const DashboardPage = () => {
     );
   }
 
+  const roleToUse = overrideRole?.toUpperCase() || user.role;
+
   const renderDashboard = () => {
-    switch (user.role) {
+    switch (roleToUse) {
       case "ADMIN":
         return <AdminDashboard />;
       case "EMPLOYEE":

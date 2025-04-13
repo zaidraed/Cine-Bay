@@ -90,6 +90,18 @@ const AdminDashboard = () => {
         >
           👥 Gestionar Usuarios
         </button>
+        <button
+          className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded transition-colors"
+          onClick={() => navigate("/dashboard?as=user")}
+        >
+          👤 Ver Dashboard Usuario
+        </button>
+        <button
+          className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded transition-colors"
+          onClick={() => navigate("/dashboard?as=employee")}
+        >
+          👷 Ver Dashboard Empleado
+        </button>
       </div>
 
       <div className="pt-6 border-t">{renderForm()}</div>
