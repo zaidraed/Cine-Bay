@@ -2,7 +2,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import UpcomingMoviesCard from "./UpcomingMoviesCard";
-import { useUpcomingMovies } from "../../Hooks/useMovies";
+import { useUpcomingMovies } from "../../Hooks/useUpcomingMovies";
 
 const UpcomingMovies = () => {
   const { data: upcomingMovies, isLoading, isError } = useUpcomingMovies();

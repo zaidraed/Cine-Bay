@@ -92,43 +92,4 @@ export class MoviesService {
 
     return movies;
   }
-  async findNowPlayingWithScreenings(): Promise<Movie[]> {
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-
-    const todayEnd = new Date();
-    todayEnd.setHours(23, 59, 59, 999);
-
-    return this.prisma.movie.findMany({
-      where: {
-        screenings: {
-          some: {
-            schedule: {
-              gte: todayStart,
-              lte: todayEnd,
-            },
-          },
-        },
-      },
-      include: {
-        screenings: {
-          where: {
-            schedule: {
-              gte: todayStart,
-              lte: todayEnd,
-            },
-          },
-          select: {
-            id: true,
-            schedule: true,
-            hall: {
-              select: {
-                name: true,
-              },
-            },
-          },
-        },
-      },
-    });
-  }
 }

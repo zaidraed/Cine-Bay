@@ -33,20 +33,8 @@ export const MovieCard = ({ movie }) => {
     releaseDate = new Date().toISOString(),
     duration = "120",
     genre = "Sin género",
-    //   format = ["2D"],
-    screenings = [],
+    format = ["2D"],
   } = movie;
-
-  // Filtrar screenings para hoy
-  const todayScreenings = screenings?.filter((screening) => {
-    const screeningDate = new Date(screening.schedule);
-    const today = new Date();
-    return (
-      screeningDate.getDate() === today.getDate() &&
-      screeningDate.getMonth() === today.getMonth() &&
-      screeningDate.getFullYear() === today.getFullYear()
-    );
-  });
 
   return (
     <motion.div
@@ -96,28 +84,19 @@ export const MovieCard = ({ movie }) => {
 
           <div className="mt-4 flex justify-between items-center">
             <div className="flex gap-1">
-              {todayScreenings?.slice(0, 2).map((screening) => (
+              {format.map((f, i) => (
                 <span
-                  key={screening.id}
-                  className="text-xs bg-blue-600 text-white px-2 py-1 rounded"
+                  key={i}
+                  className="text-xs bg-zinc-800 text-blue-400 px-2 py-1 rounded"
                 >
-                  {new Date(screening.schedule).toLocaleTimeString("es-ES", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false,
-                  })}
+                  {f}
                 </span>
               ))}
-              {todayScreenings?.length > 2 && (
-                <span className="text-xs bg-zinc-800 text-blue-400 px-2 py-1 rounded">
-                  +{todayScreenings.length - 2}
-                </span>
-              )}
             </div>
 
             <button className="text-blue-400 hover:text-blue-300 flex items-center gap-1 text-sm">
               <Ticket className="h-4 w-4" />
-              <span>Más horarios</span>
+              <span>Horarios</span>
             </button>
           </div>
         </div>
@@ -139,12 +118,6 @@ MovieCard.propTypes = {
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     genre: PropTypes.string,
     format: PropTypes.arrayOf(PropTypes.string),
-    screenings: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        schedule: PropTypes.string.isRequired,
-      })
-    ),
   }),
 };
 

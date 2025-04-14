@@ -12,44 +12,12 @@ import {
 import { MoviesService } from "./movies.service";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
-import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiTags, ApiOperation } from "@nestjs/swagger";
 
 @ApiTags("Movies")
 @Controller("movies")
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
-
-  @Get("now-playing")
-  @ApiOperation({ summary: "Get movies currently in theaters" })
-  @ApiResponse({
-    status: 200,
-    description: "Returns movies with screenings today",
-    schema: {
-      type: "array",
-      items: {
-        $ref: "#/components/schemas/Movie",
-      },
-    },
-  })
-  async findNowPlaying() {
-    return this.moviesService.findNowPlayingWithScreenings();
-  }
-
-  @Get("upcoming")
-  @ApiOperation({ summary: "Get upcoming movies" })
-  @ApiResponse({
-    status: 200,
-    description: "Returns movies with future release dates",
-    schema: {
-      type: "array",
-      items: {
-        $ref: "#/components/schemas/Movie",
-      },
-    },
-  })
-  async findUpcoming() {
-    return this.moviesService.findUpcoming();
-  }
 
   @Post()
   @ApiOperation({ summary: "Create a new movie" })
@@ -85,7 +53,7 @@ export class MoviesController {
   remove(@Param("id") id: string) {
     return this.moviesService.remove(id);
   }
-  /*@Get("upcoming")
+  @Get("upcoming")
   @ApiOperation({
     summary: "Get upcoming movies",
     description:
@@ -101,5 +69,5 @@ export class MoviesController {
   })
   async findNowPlaying() {
     return this.moviesService.findNowPlaying();
-  }*/
+  }
 }
