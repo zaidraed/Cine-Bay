@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 export const Logo = ({ className }) => (
   <div className={`flex items-center gap-2 ${className}`}>
     <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
@@ -18,3 +19,7 @@ export const Logo = ({ className }) => (
     </span>
   </div>
 );
+Logo.propTypes = { className: PropTypes.string };
+Logo.defaultProps = {
+  className: "",
+};
