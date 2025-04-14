@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../utils/fetchData";
 
+// Hook personalizado para películas que se estrenan próximamente
 export const useUpcomingMovies = () => {
   return useQuery({
     queryKey: ["upcoming-movies"],

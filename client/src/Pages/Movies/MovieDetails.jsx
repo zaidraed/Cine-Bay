@@ -125,15 +125,15 @@ const MovieDetails = () => {
     }
   }, [movie, screeningsData]);
 
-  // const handleFechaClick = (fechaKey) => {
-  //   setFechaSeleccionada(fechaKey);
-  //   const fechaSeleccionadaObj = fechasUnicas.find(
-  //     (fecha) => fecha.key === fechaKey
-  //   );
-  //   if (fechaSeleccionadaObj) {
-  //     setScreenings(fechaSeleccionadaObj.horarios);
-  //   }
-  // };
+  const handleFechaClick = (fechaKey) => {
+    setFechaSeleccionada(fechaKey);
+    const fechaSeleccionadaObj = fechasUnicas.find(
+      (fecha) => fecha.key === fechaKey
+    );
+    if (fechaSeleccionadaObj) {
+      setScreenings(fechaSeleccionadaObj.horarios);
+    }
+  };
   const handleHorarioClick = (screeningId) => {
     navigate(`/sitSelector/${screeningId}`);
   };
@@ -224,7 +224,7 @@ const MovieDetails = () => {
                   {fechasUnicas.map((fecha) => (
                     <button
                       key={fecha.key}
-                      onClick={() => handleHorarioClick(fecha.key)}
+                      onClick={() => handleFechaClick(fecha.key)}
                       className={`flex-shrink-0 border-2 ${
                         fechaSeleccionada === fecha.key
                           ? "border-black"
